@@ -1,9 +1,8 @@
 import streamlit as st
-import numpy as np
 import sympy as sp
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 from raices.metodos.metodo_biseccion import biseccion
-from util.submit_funcs import a_lambda, iniciar_plot
+from util.submit_funcs import a_lambda, iniciar_plot, configurar_slider
 
 st.title("📉 Método de Bisección")
 st.markdown("Encuentra la raíz de una función continua en un intervalo $[a, b]$ donde $f(a) \cdot f(b) < 0$.")
@@ -34,23 +33,45 @@ with st.form("form_biseccion"):
     calcular = st.form_submit_button("🚀 Calcular Raíz", use_container_width=True)
     if calcular:
         f, expr = a_lambda(funcion_str)
-        df, resul = biseccion(a,b,f,tolerancia, max_iter=max_iter)
+        df, resul = biseccion(a, b, f, tolerancia, max_iter=max_iter)
         st.markdown(f'Funcion: ${sp.latex(expr)}$')
         st.text(f'Resultado: {resul}')
 
+        fig, x = iniciar_plot(f, expr)
 
-        fig, ax, x = iniciar_plot(f, expr, resul)
+        for i, row in df.iterrows():
+            visible = (i == 0)
+            fig.add_trace(go.Scatter(
+                x=[row['a'], row['a']],
+                y=[-20, 20],
+                mode='lines',
+                name='a',
+                line=dict(color='#00C0F2'),
+                visible=visible
+            ))
+            fig.add_trace(go.Scatter(
+                x=[row['b'], row['b']],
+                y=[-20, 20],
+                mode='lines',
+                name='b',
+                line=dict(color='#8038FF'),
+                visible=visible
+            ))
+            fig.add_trace(go.Scatter(
+                x=[row['c']],
+                y=[0],
+                mode='markers',
+                name='Raiz',
+                marker=dict(color='#FF4B4B', size=9),
+                visible=visible
+            ))
 
-        ax.plot(np.full(len(x), a), x, label='a', color='#00C0F2')
-        ax.plot(np.full(len(x), b), x, label='b', color='#8038FF')
+        configurar_slider(fig, len(df), trazas_por_iter=3)
 
-        ax.legend()
-        fig_height = fig.get_figheight()
-        plt.close(fig)
 if calcular:
     st.divider()
-    col_tabla, col_grafica = st.columns([1,1], vertical_alignment='center')
+    col_tabla, col_grafica = st.columns([1, 1], vertical_alignment='center')
     with col_grafica:
-        st.pyplot(fig)
+        st.plotly_chart(fig, use_container_width=True)
     with col_tabla:
-        st.dataframe(df)
+        st.dataframe(df, use_container_width=True)

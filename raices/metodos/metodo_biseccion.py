@@ -1,5 +1,5 @@
-import numpy as np
 import pandas as pd
+import numpy as np
 
 def biseccion(a, b, f, err, max_iter = 100):
     vec_a = [a]

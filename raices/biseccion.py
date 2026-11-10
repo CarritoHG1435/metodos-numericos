@@ -2,7 +2,7 @@ import streamlit as st
 import sympy as sp
 import plotly.graph_objects as go
 from raices.metodos.metodo_biseccion import biseccion
-from util.submit_funcs import a_lambda, iniciar_plot, configurar_slider
+from util.submit_funcs import a_lambda, iniciar_plot, configurar_animacion
 
 st.title("📉 Método de Bisección")
 st.markdown("Encuentra la raíz de una función continua en un intervalo $[a, b]$ donde $f(a) \cdot f(b) < 0$.")
@@ -39,38 +39,37 @@ with st.form("form_biseccion"):
 
         fig, x = iniciar_plot(f, expr)
 
-        for i, row in df.iterrows():
-            visible = (i == 0)
-            fig.add_trace(go.Scatter(
-                x=[row['a'], row['a']],
-                y=[-20, 20],
-                mode='lines',
-                name='a',
-                line=dict(color='#00C0F2'),
-                visible=visible
-            ))
-            fig.add_trace(go.Scatter(
-                x=[row['b'], row['b']],
-                y=[-20, 20],
-                mode='lines',
-                name='b',
-                line=dict(color='#8038FF'),
-                visible=visible
-            ))
-            fig.add_trace(go.Scatter(
-                x=[row['c']],
-                y=[0],
-                mode='markers',
-                name='Raiz',
-                marker=dict(color='#FF4B4B', size=9),
-                visible=visible
-            ))
+        trazas_por_iteracion = []
+        for _, row in df.iterrows():
+            trazas_por_iteracion.append([
+                go.Scatter(
+                    x=[row['a'], row['a']],
+                    y=[-20, 20],
+                    mode='lines',
+                    name='a',
+                    line=dict(color='#00C0F2', simplify=False)
+                ),
+                go.Scatter(
+                    x=[row['b'], row['b']],
+                    y=[-20, 20],
+                    mode='lines',
+                    name='b',
+                    line=dict(color='#8038FF', simplify=False)
+                ),
+                go.Scatter(
+                    x=[row['c']],
+                    y=[0],
+                    mode='markers',
+                    name='Raiz (c)',
+                    maker=dict(color='#FF4B4B', size=9)
+                )
+            ])
 
-        configurar_slider(fig, len(df), trazas_por_iter=3)
+        configurar_animacion(fig, trazas_por_iteracion)
 
 if calcular:
     st.divider()
-    col_tabla, col_grafica = st.columns([1, 1], vertical_alignment='center')
+    col_tabla, col_grafica = st.columns([0.6, 1.4], vertical_alignment='center')
     with col_grafica:
         st.plotly_chart(fig, use_container_width=True)
     with col_tabla:

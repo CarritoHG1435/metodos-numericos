@@ -1,8 +1,9 @@
 import streamlit as st
+import numpy as np
 import sympy as sp
 import plotly.graph_objects as go
 from raices.metodos.metodo_secante import secante
-from util.submit_funcs import a_lambda, iniciar_plot, configurar_slider
+from util.submit_funcs import a_lambda, iniciar_plot, configurar_animacion
 
 st.title("📉 Método de la secante")
 st.markdown("Encuentra la raíz de una función continua por medio de secantes de la funcion definida inicialmente por $(p_0,f(p_0)), (p_1, f(p_1))$.")
@@ -37,34 +38,50 @@ with st.form("form_secante"):
         st.text(f'Resultado: {resul}')
 
         fig, x = iniciar_plot(f, expr)
+        x_recta = np.array([-20.0, 20.0])
 
-        for i, row in df.iterrows():
-            visible = (i == 0)
-            p0_i, p1_i, p2_i = row['p0'], row['p1'], row['p2']
-            y_sec = ((f(p1_i) - f(p0_i)) / (p1_i - p0_i)) * (x - p1_i) + f(p1_i)
+        trazas_por_iteracion = []
+        for _, row in df.iterrows():
+            p0_i, p1_i, p2_i = float(row['p0']), float(row['p1']), float(row['p2'])
+            fp0_i, fp1_i = float(f(p0_i)), float(f(p1_i))
+            y_sec = ((fp1_i - fp0_i) / (p1_i - p0_i)) * (x_recta - p1_i) + fp1_i
 
-            fig.add_trace(go.Scatter(
-                x=x,
-                y=y_sec,
-                mode='lines',
-                name='Secante',
-                line=dict(color='#00C0F2'),
-                visible=visible
-            ))
-            fig.add_trace(go.Scatter(
-                x=[p2_i],
-                y=[0],
-                mode='markers',
-                name='Raiz',
-                marker=dict(color='#FF4B4B', size=9),
-                visible=visible
-            ))
+            trazas_por_iteracion.append([
+                go.Scatter(
+                    x=x_recta,
+                    y=y_sec,
+                    mode='lines',
+                    name='Secante',
+                    line=dict(color='#00C0F2', simplify=False)
+                ),
+                go.Scatter(
+                    x=[p0_i],
+                    y=[fp0_i],
+                    mode='markers',
+                    name='(p0, f(p0))',
+                    marker=dict(color='#8038FF', size=9, symbol='circle')
+                ),
+                go.Scatter(
+                    x=[p1_i],
+                    y=[fp1_i],
+                    mode='markers',
+                    name='(p1, f(p1))',
+                    marker=dict(color='#00F2A9', size=9, symbol='circle')
+                ),
+                go.Scatter(
+                    x=[p2_i],
+                    y=[0],
+                    mode='markers',
+                    name='Raiz (p2)',
+                    marker=dict(color='#FF4B4B', size=9)
+                )
+            ])
 
-        configurar_slider(fig, len(df), trazas_por_iter=2)
+        configurar_animacion(fig, trazas_por_iteracion)
 
 if calcular:
     st.divider()
-    col_tabla, col_grafica = st.columns([1, 1], vertical_alignment='center')
+    col_tabla, col_grafica = st.columns([0.6, 1.4], vertical_alignment='center')
     with col_grafica:
         st.plotly_chart(fig, use_container_width=True)
     with col_tabla:

@@ -37,53 +37,53 @@ paginas = {
         st.Page('raices/falsa_posicion.py', title='Falsa Posicion', icon='📉'),
         # TODO Metodo de newton-rapshon
         st.Page('raices/newton_rapshon.py', title='Newton - Rapshon', icon="📉"),
-        # TODO Metodo de punto fijo
+        # TODO: Metodo de punto fijo
         st.Page('raices/punto-fijo.py', title='Punto Fijo', icon="📉"),
-        # TODO Metodo de Muller
+        # TODO: Metodo de Muller
         st.Page('raices/muller.py', title='Muller', icon="📉"),
-        # TODO Metodo de Deflacion
+        # TODO: Metodo de Deflacion
         st.Page('raices/deflacion.py', title='Deflacion', icon="📉"),
     ],
 
     "Interpolacion": [
-        # TODO Metodo de Lagrange
+        # TODO: Metodo de Lagrange
         st.Page('interpolacion/lagrange.py', title='Lagrange', icon='〰️'),
-        # TODO Metodo de Fracciones divididas
+        # TODO: Metodo de Fracciones divididas
         st.Page('interpolacion/fracciones_divididas.py', title='Fracciones divididas', icon='〰️'),
-        # TODO Metodo de Hermite
+        # TODO: Metodo de Hermite
         st.Page('interpolacion/hermite.py', title='Hermite', icon='〰️'),
-        # TODO Metodo de Neville
+        # TODO: Metodo de Neville
         st.Page('interpolacion/neville.py', title='Neville', icon='〰️'),
-        # TODO Metodo de Splines Cubicos
+        # TODO: Metodo de Splines Cubicos
         st.Page('interpolacion/splines.py', title='Splines Cubicos', icon='〰️'),
     ],
 
     "Derivacion e integracion": [
-        # TODO Metodo de derivacion por 2 puntos
+        # TODO: Metodo de derivacion por 2 puntos
         st.Page('di_numerica/derivacion/2_puntos.py', title='Fórmula de 2 Puntos', icon='⚡', url_path='2-puntos'),
-        # TODO Metodo de derivacion por 3 puntos
+        # TODO: Metodo de derivacion por 3 puntos
         st.Page('di_numerica/derivacion/3_puntos.py', title='Fórmula de 3 Puntos', icon='⚡', url_path='3-puntos'),
-        # TODO Metodo de derivacion por 5 puntos
+        # TODO: Metodo de derivacion por 5 puntos
         st.Page('di_numerica/derivacion/5_puntos.py', title='Fórmula de 5 Puntos', icon='⚡', url_path='5-puntos'),
-        # TODO Metodo de extrapolacion de richardson
+        # TODO: Metodo de extrapolacion de richardson
         st.Page('di_numerica/derivacion/richardson.py', title='Extrapolación de Richardson', icon='⚡'),
-        # TODO Metodo de integracion por regla del trapecio
+        # TODO: Metodo de integracion por regla del trapecio
         st.Page('di_numerica/integracion/trapecio.py', title='Regla del Trapecio', icon='🧱'),
-        # TODO Metodo de integracion por regla de simpson 1/3
+        # TODO: Metodo de integracion por regla de simpson 1/3
         st.Page('di_numerica/integracion/simpson13.py', title='Regla de Simpson 1/3', icon='🧱'),
-        # TODO Metodo de integracion por regla de simpson 3/8
+        # TODO: Metodo de integracion por regla de simpson 3/8
         st.Page('di_numerica/integracion/simpson38.py', title='Regla de Simpson 3/8', icon='🧱'),
-        # TODO Metodo de integracion de Romberg
+        # TODO: Metodo de integracion de Romberg
         st.Page('di_numerica/integracion/rombert.py', title='Método de Romberg', icon='🧱'),
-        # TODO Metodo de integracion por cuadratura adaptativa
+        # TODO: Metodo de integracion por cuadratura adaptativa
         st.Page('di_numerica/integracion/cuadratura_adaptiva.py', title='Cuadratura Adaptativa', icon='🧱'),
-        # TODO Metodo de integracion por cuadratura gaussiana
+        # TODO: Metodo de integracion por cuadratura gaussiana
         st.Page('di_numerica/integracion/cuadratura_gaussiana.py', title='Cuadratura Gaussiana', icon='🧱'),
-        # TODO Metodo de integracion multiple por regla del trapecio
+        # TODO: Metodo de integracion multiple por regla del trapecio
         st.Page('di_numerica/integracion/multiple_trapecio.py', title='Multiple Regla del Trapecio', icon='🧱'),
-        # TODO Metodo de integracion multiple por regla de simpson 1/3
+        # TODO: Metodo de integracion multiple por regla de simpson 1/3
         st.Page('di_numerica/integracion/multiple_simpson13.py', title='Multiple Regla de Simpson 1/3', icon='🧱'),
-        # TODO Metodo de integracion multiple por regla de simpson 3/8
+        # TODO: Metodo de integracion multiple por regla de simpson 3/8
         st.Page('di_numerica/integracion/multiple_simpson38.py', title='Multiple Regla de Simpson 3/8', icon='🧱'),
     ],
     "Sistemas de Ecuaciones": [
